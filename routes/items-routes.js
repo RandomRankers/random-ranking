@@ -8,6 +8,12 @@ module.exports = function(app) {
     });
   });
 
+   app.post("/api/items", function(req, res) {
+    db.Item.create(req.body).then(function(dbItem) {
+      res.json(dbitem);
+    });
+  });
+
 
   app.put('/api/items/:id/:score'), function(req,res){
   	db.Item.findOne({

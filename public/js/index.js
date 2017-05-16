@@ -33,7 +33,7 @@ var handleSubmit = function(){
     }
     // Calling the upsertAuthor function and passing in the value of the name input
     postRanking({
-      topic: newSubjectForm
+      name: newSubjectForm
         .val()
         .trim(),
       topicURL: newImageForm
@@ -72,7 +72,7 @@ function getRankings(){
 
 function createNewRow(rankingData){
 
-var newRankingPanel = $("<div href=/api/items></div>");
+var newRankingPanel = $("<div>");
 newRankingPanel.data("ranking",rankingData);
 newRankingPanel.addClass("thumbnail placeholder");
 var newRankImage = $("<img>");
@@ -82,9 +82,9 @@ newRankImage.attr("src",rankingData.topicURL);
 
 var newText = $("<div>");
 newText.addClass("caption");
-var newSubjectContent = $("<p>");
+var newSubjectContent = $("<a href=/api/items/id="+rankingData.id+"></a>");
 newSubjectContent.addClass("subject");
-newSubjectContent.text("Subject: " +rankingData.topic);
+newSubjectContent.text("Subject: " +rankingData.name);
 
 
 var newTopicContent = $("<p>");
