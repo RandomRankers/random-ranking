@@ -19,7 +19,7 @@ module.exports = function(app) {
       res.json(dbItem);
 
     });
-  }
+  
 
   db.Item.findById(req.params.id).then( Item => {
 	  return Item.increment('score', {by: 1})
@@ -34,3 +34,4 @@ module.exports = function(app) {
 		res.json(dbItem);
 	  });
 	};
+}

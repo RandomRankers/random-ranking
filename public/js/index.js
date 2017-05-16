@@ -21,11 +21,12 @@ event.preventDefault();
 handleSubmit();
 });
 
+getRankings();
 
 //function to get the inputs from the modal forms
 
-function handleSubmit(event){
-event.preventDefault();
+var handleSubmit = function(){
+
     // Don't do anything if the name fields hasn't been filled out
     if (!newSubjectForm.val().trim().trim() || !newImageForm.val().trim().trim()||!newTopicForm.val().trim().trim()) {
       return;
@@ -46,17 +47,17 @@ event.preventDefault();
 
 
 function postRanking(rankingData){
-	$.post('api/topic', rankingData)
+	$.post('/api/topics', rankingData)
 	.then(getRankings);
 }
 
 
-//getRankings();
+
 function getRankings(){
-	$.get('api/topic', function(data){
+	$.get('/api/topics', function(data){
 		console.log("rankings", data);
 		var rankings = data;
-		rankingViews.empthy();
+		rankingViews.empty();
 		var rankingToAdd = [];
 		for (var i = 0; i<rankings.length; i++){
 			rankingToAdd.push(createNewRow(rankings[i]));

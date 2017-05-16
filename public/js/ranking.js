@@ -140,4 +140,4 @@ function rankingDesign(){
 
 })
 
-
+//add on click functions that link the buttons th the database
