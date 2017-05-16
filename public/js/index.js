@@ -1,5 +1,7 @@
 $(document).ready(function() {
   /* global moment */
+var newImageForm = $("#inputURL");
+var newSubjectForm = $("#inputName");
 
 $("#thanks").hide();
 $(".inside_ranking_view").hide();
@@ -41,6 +43,22 @@ function getRankings(){
 		})
 	};
 
+
+
+
+function handleSubmit(event){
+event.preventDefault();
+    // Don't do anything if the name fields hasn't been filled out
+    if (!newSubjectForm.val().trim().trim() || !newImageForm.val().trim().trim()) {
+      return;
+    }
+    // Calling the upsertAuthor function and passing in the value of the name input
+    postRanking({
+      name: nameInput
+        .val()
+        .trim()
+    });
+  }
 
 function postRanking(){
 	$.post('api/rankings', function(data){
