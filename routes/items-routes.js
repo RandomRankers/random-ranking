@@ -1,38 +1,36 @@
-var db = require("../models");
+var db = require("../models/");
 
 module.exports = function(app) {
 
   app.get("/api/items", function(req, res) {
-    db.Items.findAll({}).then(function(dbItems) {
-      res.json(dbItems);
+    db.Item.findAll({}).then(function(dbItem) {
+      res.json(dbItem);
     });
   });
 
 
   app.put('/api/items/:id/:score'), function(req,res){
-  	db.Items.findOne({
+  	db.Item.findOne({
     where: {
         id: req.params.id
       }
-    }).then(function(dbItems) {
+    }).then(function(dbItem) {
 
-      res.json(dbItems);
+      res.json(dbItem);
 
     });
   }
 
-  Items.findById(req.params.id).then( Items => {
-	  return Items.increment('score', {by: 1})
-	}).then(function(dbItems){
-		res.json(dbItems);
+  db.Item.findById(req.params.id).then( Item => {
+	  return Item.increment('score', {by: 1})
+	}).then(function(dbItem){
+		res.json(dbItem);
 	  });
-	}
 
-  Items.findById(req.params.id).then( Items => {
-	  return Items.decrement('score', {by: 1})
-	}).then(function(dbItems){
-		res.json(dbItems);
+
+  db.Item.findById(req.params.id).then( Item => {
+	  return Item.decrement('score', {by: 1})
+	}).then(function(dbItem){
+		res.json(dbItem);
 	  });
-	}
-	
-};
+	};

@@ -5,7 +5,6 @@ var newSubjectForm = $("#inputName");
 var newTopicForm = $("#inputTopic");
 
 $("#thanks").hide();
-$(".inside_ranking_view").hide();
 
 var rankingViews = $(".ranking_view");
 var ranking = $("#ranking");
@@ -96,8 +95,8 @@ newRankingPanel.append(newRankImage);
 newRankingPanel.append(newText);
 newText.append(newSubjectContent);
 newText.append(newTopicContent);
-newRankingPanel.data("ranking","ranking");
-$(".ranking_view").append(newRankingPanel);
+
+return newRankingPanel;
 
 $("#thanks").show();
 $("#form").hide();

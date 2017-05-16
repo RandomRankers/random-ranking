@@ -1,4 +1,10 @@
 $(document).ready(function() {
+
+var newImageForm = $("#itemURLImput");
+var newItemForm = $("#itemNameImput");
+
+var itemViews = $(".item_view");
+
 //modal
 
 
@@ -11,28 +17,70 @@ createModal();
 
 	$("#submitButton").on("click", function(event){
 	event.preventDefault();
-	createNewRow();
+	handleSubmit();
 	});
 
 
+function handleSubmit(event){
+event.preventDefault();
+    // Don't do anything if the name fields hasn't been filled out
+    if (!newItemForm.val().trim().trim() || !newImageForm.val().trim().trim()) {
+      return;
+    }
+    // Calling the upsertAuthor function and passing in the value of the name input
+    postRanking({
+      item: newItemForm
+        .val()
+        .trim(),
+      itemURL: newImageForm
+      	.val()
+        .trim()
+    });
+  }
+
+function postItem(itemData){
+	$.post('api/items', itemData)
+	.then(getItems);
+}
+
+
+
+function getItems(){
+	$.get('api/items', function(data){
+		console.log("items", data);
+		var items = data;
+		itemViews.empthy();
+		var itemsToAdd = [];
+		for (var i = 0; i<items.length; i++){
+			itemsToAdd.push(createNewRow(items[i]));
+		}
+		itemViews.append(itemsToAdd);
+		})
+	};
+
+
+
+
+
 //row
-function createNewRow(){
+function createNewRow(itemData){
 
 var newItem = $("<div>");
+newItem.data("items", itemData)
 newItem.addClass("itemRow row")
 
 var newImageCol = $("<div>");
 newImageCol.addClass('col-lg-2');
 var newImage = $("<img>");
 newImage.addClass('itemImage');
-var newImageForm = $("#itemURLImput").val().trim();
-newImage.attr("src",newImageForm);
+
+newImage.attr("src",itemData.itemURL);
 
 
 var newText = $("<div>");
 newText.addClass("col-lg-8 item");
-var newItemForm = $("#itemNameImput").val().trim();
-var score = "50";
+newItemForm = itemData.item;
+var score = itemData.score;
 var insideItem = $("<p>{<span>"+newItemForm+"</span>}.(<span id='itemPoints'>"+score+"</span>)</p>")
 
 var newButtons = $("<div>");
@@ -63,7 +111,7 @@ newButtons.append(newTopButton);
 newButtons.append(newBottomButton);
 newItem.append(newButtons);
 
-$(".item_view").append(newItem);
+return newItem;
 
 
 $("#thanks").show();
