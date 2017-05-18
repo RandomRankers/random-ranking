@@ -4,12 +4,12 @@ module.exports = function(app){
 
 	app.get ('/', function(req, res){
 
-		res.sendfile(path.file(__dirname + '../public/js/index.js'))
+		res.sendFile(path.join(__dirname, '../public/index.html'))
 		
 	});
 
 	app.get('/ranking', function(req,res){
-		res.sendfile(path.file(__dirname + '../public/js/ranking.js'))
+		res.sendFile(path.join(__dirname, '../public/ranking.html'))
 	});
 
 };

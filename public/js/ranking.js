@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-var newImageForm = $("#itemURLImput");
-var newItemForm = $("#itemNameImput");
+var newImageForm = $("#itemURLInput");
+var newItemForm = $("#itemNameInput");
 
 var itemViews = $(".item_view");
 
@@ -22,19 +22,20 @@ createModal();
 
 
 function handleSubmit(event){
-event.preventDefault();
+
     // Don't do anything if the name fields hasn't been filled out
     if (!newItemForm.val().trim().trim() || !newImageForm.val().trim().trim()) {
       return;
     }
     // Calling the upsertAuthor function and passing in the value of the name input
-    postRanking({
-      item: newItemForm
+    postItem({
+      name: newItemForm
         .val()
         .trim(),
-      itemURL: newImageForm
+      imgURL: newImageForm
       	.val()
-        .trim()
+        .trim(),
+      score: 0
     });
   }
 
@@ -49,7 +50,7 @@ function getItems(){
 	$.get('api/items', function(data){
 		console.log("items", data);
 		var items = data;
-		itemViews.empthy();
+		itemViews.empty();
 		var itemsToAdd = [];
 		for (var i = 0; i<items.length; i++){
 			itemsToAdd.push(createNewRow(items[i]));
@@ -74,14 +75,14 @@ newImageCol.addClass('col-lg-2');
 var newImage = $("<img>");
 newImage.addClass('itemImage');
 
-newImage.attr("src",itemData.itemURL);
+newImage.attr("src",itemData.imgURL);
 
 
 var newText = $("<div>");
 newText.addClass("col-lg-8 item");
-newItemForm = itemData.item;
+var itemForm = itemData.name;
 var score = itemData.score;
-var insideItem = $("<p>{<span>"+newItemForm+"</span>}.(<span id='itemPoints'>"+score+"</span>)</p>")
+var insideItem = $("<p>{<span>"+itemForm+"</span>}.(<span id='itemPoints'>"+score+"</span>)</p>")
 
 var newButtons = $("<div>");
 newButtons.addClass("col-lg-2")
@@ -117,6 +118,9 @@ return newItem;
 $("#thanks").show();
 $("#form").hide();
 
+
+
+
 };
 
 function createModal(){
@@ -127,17 +131,22 @@ function createModal(){
 };
 
 rankingDesign();
-function rankingDesign(){
-	var currentRanking = "Pirates";
-	var rankingName = $("#rankingName");
-	rankingName.html(currentRanking);
-	var headerImage = $(".header");
- 	headerImage.css({
-    "background-image": "url('http://images.hellogiggles.com/uploads/2017/03/26031222/pirates-jack-sparrow.jpg')"
+function rankingDesign(id){
+	$.get("/api/topics/"+id, function(rankingData){
+		console.log(rankingData);
+		var currentRanking = "Pirates";
+		var rankingName = $("#rankingName");
+		rankingName.html(currentRanking);
+		var headerImage = $(".header");
+		console.log(rankingData.topicURL);
+	 	headerImage.css({
+	    "background-image": "url('"+rankingData.topicURL+"')"
  });
+});
 };
 
 
-})
+
+});
 
 //add on click functions that link the buttons th the database

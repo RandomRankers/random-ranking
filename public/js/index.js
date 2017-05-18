@@ -82,7 +82,7 @@ newRankImage.attr("src",rankingData.topicURL);
 
 var newText = $("<div>");
 newText.addClass("caption");
-var newSubjectContent = $("<a href=/api/items/id="+rankingData.id+"></a>");
+var newSubjectContent = $("<a href=/ranking?id="+rankingData.id+"></a>");
 newSubjectContent.addClass("subject");
 newSubjectContent.text("Subject: " +rankingData.name);
 

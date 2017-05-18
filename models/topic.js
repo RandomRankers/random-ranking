@@ -2,7 +2,8 @@ module.exports = function(sequelize, DataTypes) {
   var Topic = sequelize.define("Topic", {
     // Giving the Topic model a name of type STRING
     name: DataTypes.STRING,
-    topicURL: DataTypes.TEXT
+    topicURL: DataTypes.TEXT,
+    category: DataTypes.STRING
   },
 
     // Here we'll pass a second "classMethods" object into the define method

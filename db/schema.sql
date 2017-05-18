@@ -1,2 +1,2 @@
-create database ranking_db;
+create database randomrankers_db;
 	

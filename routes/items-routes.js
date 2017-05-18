@@ -8,36 +8,67 @@ module.exports = function(app) {
     });
   });
 
-   app.post("/api/items", function(req, res) {
+  app.post("/api/items", function(req, res) {
     db.Item.create(req.body).then(function(dbItem) {
-      res.json(dbitem);
+      res.json(dbItem);
     });
   });
 
 
-  app.put('/api/items/:id/:score'), function(req,res){
-  	db.Item.findOne({
+  app.post("/:id", function(req, res) {
+    db.Item.create(req.body).then(function(dbItem) {
+      // res.json(dbItem);
+      res.redirect('/');
+    });
+  });
+
+
+  app.get('/:id', function(req, res) {
+    res.send(req.params.ids)
+   });
+
+
+  app.put('/api/items/increment/:id/:score', function(req,res){
+  	db.Item.findById({
     where: {
         id: req.params.id
       }
     }).then(function(dbItem) {
 
+    res.json(dbItem);
+
+    db.Item.findById({
+      where: {
+          id: req.params.id
+        }
+      }).then( Item => {
+      return Item.increment('score', {by: 1})
+    }).then(function(dbItem){
       res.json(dbItem);
+      });
 
+  });
+  }) 
+
+  app.put('/api/items/decrement/:id/:score', function(req,res){
+
+    db.Item.findById({
+        where: {
+            id: req.params.id
+          }
+        }).then(function(dbItem) {
+
+        res.json(dbItem);
+
+    db.Item.findById({
+        where: {
+            id: req.params.id
+          }
+        }).then( Item => {
+        return Item.decrement('score', {by: 1})
+      }).then(function(dbItem){
+      	res.json(dbItem);
+        });
     });
-  
-
-  db.Item.findById(req.params.id).then( Item => {
-	  return Item.increment('score', {by: 1})
-	}).then(function(dbItem){
-		res.json(dbItem);
-	  });
-
-
-  db.Item.findById(req.params.id).then( Item => {
-	  return Item.decrement('score', {by: 1})
-	}).then(function(dbItem){
-		res.json(dbItem);
-	  });
-	};
+})
 }

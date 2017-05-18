@@ -1,15 +1,15 @@
 module.exports = function(sequelize, DataTypes){
 	var Item = sequelize.define("Item", {
-name: {
+    name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validate: {
         len: [1]
       }
     },
     imgURL: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
       len: [1]
     },
     score: {
@@ -24,7 +24,7 @@ name: {
           // A Topic (foreignKey) is required or an Item can't be made
           Item.belongsTo(models.Topic, {
             foreignKey: {
-              allowNull: false
+              allowNull: true
             }
           });
         }
