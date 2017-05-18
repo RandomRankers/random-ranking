@@ -8,7 +8,7 @@ var itemViews = $(".item_view");
 //modal
 
 
-$("#thanks").hide();
+
 
 $("#newRanking").on("click", function(event){
 event.preventDefault();
@@ -118,10 +118,8 @@ return newItem;
 $("#thanks").show();
 $("#form").hide();
 
-
-
-
 };
+
 
 function createModal(){
 	$('.modal').modal('toggle');
@@ -130,10 +128,9 @@ function createModal(){
 
 };
 
-rankingDesign();
-function rankingDesign(id){
-	$.get("/api/topics/"+id, function(rankingData){
-		console.log(rankingData);
+function rankingDesign(){
+	$.get("/api/topics?id=1", function(rankingData){
+		console.log(rankingData.id);
 		var currentRanking = "Pirates";
 		var rankingName = $("#rankingName");
 		rankingName.html(currentRanking);
@@ -144,9 +141,12 @@ function rankingDesign(id){
  });
 });
 };
+rankingDesign();
+
 
 
 
 });
 
 //add on click functions that link the buttons th the database
+

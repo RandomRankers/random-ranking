@@ -109,7 +109,6 @@ $("#form").hide();
 function createModal(){
 $('.modal').modal('toggle')
 $("#form").show();
-$("#thanks").hide();
 }
 
 headerDesign();
