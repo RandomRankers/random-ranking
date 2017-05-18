@@ -1,4 +1,4 @@
-var db = require("../models/");
+var db = require('../models');
 
 module.exports = function(app) {
 
@@ -10,27 +10,41 @@ module.exports = function(app) {
 
 
   app.put('/api/items/:id/:score'), function(req,res){
-  	db.Item.findOne({
-    where: {
+  	
+    db.Item.findById({
+      where: {
         id: req.params.id
       }
     }).then(function(dbItem) {
-
       res.json(dbItem);
-
     });
-  }
 
-  db.Item.findById(req.params.id).then( Item => {
-	  return Item.increment('score', {by: 1})
-	}).then(function(dbItem){
-		res.json(dbItem);
-	  });
+    db.Item.findById({
+      where:{
+        id:req.params.id
+        }
+      }).then( Item => {
+      return Item.increment('score', {by: 1})
+    }).then(function(dbItem){
+      res.json(dbItem);
+    });
 
 
-  db.Item.findById(req.params.id).then( Item => {
-	  return Item.decrement('score', {by: 1})
-	}).then(function(dbItem){
-		res.json(dbItem);
-	  });
-	};
+    db.Item.findById({
+      where:{
+        id:req.params.id
+        }
+      }).then( Item => {
+      return Item.decrement('score', {by: 1})
+    }).then(function(dbItem){
+      res.json(dbItem);
+      });
+    };
+
+
+  };
+
+  
+
+
+  
