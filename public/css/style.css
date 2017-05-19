@@ -13,8 +13,10 @@ html{
 }
 
 .header{
-		background-repeat: no-repeat;
+		
 		height: 730px;
+		min-width: 100%
+		min-height:100%;
 		max-height: 100%;
 		max-width: 100%;
 		margin: 0;
@@ -37,11 +39,11 @@ html{
 }
 
 #back{
-	color:#ffffff;
 	font-size: 1em;
 	font-family: 'Roboto', sans-serif;
 	padding-top: 10px;
 	padding-left: 10px;
+	margin: 10px;
 }
 
 #sub_title{
