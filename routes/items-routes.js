@@ -2,9 +2,6 @@ var db = require("../models/");
 
 module.exports = function(app) {
 
-
-
-
   app.get("/api/items", function(req, res) {
     db.Item.findAll({}).then(function(dbItem) {
       res.json(dbItem);
@@ -16,6 +13,7 @@ module.exports = function(app) {
       res.json(dbItem);
     });
   });
+
 
 
   app.post("/:id", function(req, res) {
@@ -32,46 +30,42 @@ module.exports = function(app) {
 
 
   app.put('/api/items/increment/:id/:score', function(req,res){
-  	db.Item.findById({
-    where: {
-        id: req.params.id
-      }
-    }).then(function(dbItem) {
 
-    res.json(dbItem);
+    console.log(req.params.id)
 
-    db.Item.findById({
-      where: {
-          id: req.params.id
-        }
-      }).then( Item => {
-      return Item.increment('score', {by: 1})
-    }).then(function(dbItem){
-      res.json(dbItem);
+  	// db.Item.findOne({
+   //  where: {
+   //      id: req.params.id
+   //    }
+   //  }).then(function(dbItem) {
+
+    // res.json(dbItem);
+
+    db.Item.findById(parseInt(req.params.id, 0)).then( Item => {
+        return Item.increment('score', {by: 1})
+      }).then(function(dbItem){
+        res.json(dbItem);
       });
 
   });
-  }) 
 
   app.put('/api/items/decrement/:id/:score', function(req,res){
 
-    db.Item.findById({
-        where: {
-            id: req.params.id
-          }
-        }).then(function(dbItem) {
+     console.log(req.params.id)
 
-        res.json(dbItem);
+    // db.Item.findById({
+    //     where: {
+    //         id: req.params.id
+    //       }
+    //     }).then(function(dbItem) {
 
-    db.Item.findById({
-        where: {
-            id: req.params.id
-          }
-        }).then( Item => {
+    //     res.json(dbItem);
+
+    db.Item.findById(parseInt(req.params.id, 0)).then( Item => {
         return Item.decrement('score', {by: 1})
       }).then(function(dbItem){
       	res.json(dbItem);
-        });
+      });
     });
-})
+
 }
