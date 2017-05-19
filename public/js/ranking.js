@@ -101,11 +101,25 @@ newTopButton.addClass("row")
 var TopButton = $("<button>");
 TopButton.addClass("voteBtn btn btn-success");
 TopButton.text("+1");
+TopButton.on('click', function () {
+	$.ajax({
+		path: '/api/items/increment/:id/:score',
+		method: "PUT",
+	});
+});
 
 var newBottomButton = $("<div>");
 newBottomButton.addClass("row")
 var BottomButton = $("<button>");
 BottomButton.addClass("voteBtn btn btn-danger");
+BottomButton.on('click', function () {
+	$.ajax({
+		path: '/api/items/decrement/:id/:score',
+		method: "PUT",
+	});
+});
+
+
 BottomButton.text("-1");
 
 
@@ -127,6 +141,8 @@ return newItem;
 $("#thanks").show();
 $("#form").hide();
 
+
+
 };
 
 
@@ -136,7 +152,7 @@ function createModal(){
 	$("#thanks").hide();
 
 };
-
+rankingDesign();
 function rankingDesign(){
 	$.get("/api/topics", function(rankingData){
 		for (var i=0; i<rankingData.length; i++){
@@ -153,22 +169,11 @@ function rankingDesign(){
 }
 });
 };
-rankingDesign();
+
 
 });
 
 //add on click functions that link the buttons th the database
 //window.location!!
 
-$(document).on("click", "button.btn-success", addOne);
-//$(document).on("click", "button.btn-danger", minusOne);
 
-
-function addOne() {
-   var currentItem = $(this)
-   console.log(this);
-//$.post("api/items",function(data){
-//	//console.log(data);
-//	
-//})
-  }
