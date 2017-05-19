@@ -7,7 +7,11 @@ var itemViews = $(".item_view");
 
 //modal
 
-
+var str = window.location.search;
+var res = str.substr(4);
+var theRes = parseInt(res);
+console.log(res);
+console.log(str);
 
 
 $("#newRanking").on("click", function(event){
@@ -35,7 +39,8 @@ function handleSubmit(event){
       imgURL: newImageForm
       	.val()
         .trim(),
-      score: 0
+      score: 0, 
+      TopicId: res
     });
   }
 
@@ -44,18 +49,23 @@ function postItem(itemData){
 	.then(getItems);
 }
 
-
+getItems();
 
 function getItems(){
-	$.get('api/items', function(data){
+
+	$.get('api/items/', function(data){
 		console.log("items", data);
 		var items = data;
-		itemViews.empty();
+		
 		var itemsToAdd = [];
 		for (var i = 0; i<items.length; i++){
+		if(items[i].TopicId==res){
 			itemsToAdd.push(createNewRow(items[i]));
 		}
+		}
+		
 		itemViews.append(itemsToAdd);
+	
 		})
 	};
 
@@ -129,13 +139,12 @@ function createModal(){
 };
 
 function rankingDesign(){
-	$.get("/api/topics?id=1", function(rankingData){
-		console.log(rankingData.id);
-		var currentRanking = "Pirates";
+	$.get("/api/topics?id="+theRes, function(rankingData){
+		console.log(rankingData.name)
+		var currentRanking = rankingData.name;
 		var rankingName = $("#rankingName");
 		rankingName.html(currentRanking);
 		var headerImage = $(".header");
-		console.log(rankingData.topicURL);
 	 	headerImage.css({
 	    "background-image": "url('"+rankingData.topicURL+"')"
  });
@@ -149,4 +158,15 @@ rankingDesign();
 });
 
 //add on click functions that link the buttons th the database
+//window.location!!
 
+//$(document).on("click", "button.btn-success", addOne);
+//$(document).on("click", "button.btn-danger", minusOne);
+
+//function addOne() {
+//    var currentPost = $(this)
+//     .parent()
+//      .parent()
+//      .data("post");
+//    window.location.href = "/cms?post_id=" + currentPost.id;
+//  }
