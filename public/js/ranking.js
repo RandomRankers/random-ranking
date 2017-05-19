@@ -11,16 +11,20 @@ var str = window.location.search;
 var res = str.substr(4);
 var theRes = parseInt(res);
 
+$("#thanks").hide();
 
 
 $("#newRanking").on("click", function(event){
 event.preventDefault();
 createModal();
+$("#thanks").hide();
 });
 
 	$("#submitButton").on("click", function(event){
 	event.preventDefault();
 	handleSubmit();
+	$("#thanks").show();
+	$("#form").hide();
 	});
 
 
@@ -112,10 +116,17 @@ var newBottomButton = $("<div>");
 newBottomButton.addClass("row")
 var BottomButton = $("<button>");
 BottomButton.addClass("voteBtn btn btn-danger");
-BottomButton.on('click', function () {
+
+
+
+BottomButton.on('click', function (url, data, method, success,id) {
 	$.ajax({
-		path: '/api/items/decrement/:id/:score',
+		url: '/api/items/decrement/id='+itemData.id,
+		data: data, 
 		method: "PUT",
+		success: function (data){
+			console.log("it worked!")
+		}
 	});
 });
 

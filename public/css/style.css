@@ -23,6 +23,7 @@ html{
 		padding: 0;
 
 
+
 }
 
 #title{
@@ -132,4 +133,24 @@ html{
 	float: right;
 	margin-top:15px;
 
+}
+
+footer{
+	text-align: center;
+	height: 100px;
+	background-color: #272823;
+	color: #ffffff;
+	margin-top: 50px;
+	border-top:solid black 1px;
+
+}
+
+footer>p{
+	margin-top: 40px;
+}
+
+.ranking_view{
+	align-items: center;
+	display: flex;
+	flex-wrap:wrap;
 }
