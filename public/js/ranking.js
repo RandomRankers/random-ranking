@@ -10,18 +10,21 @@ var itemViews = $(".item_view");
 var str = window.location.search;
 var res = str.substr(4);
 var theRes = parseInt(res);
-console.log(res);
-console.log(str);
+
+$("#thanks").hide();
 
 
 $("#newRanking").on("click", function(event){
 event.preventDefault();
 createModal();
+$("#thanks").hide();
 });
 
 	$("#submitButton").on("click", function(event){
 	event.preventDefault();
 	handleSubmit();
+	$("#thanks").show();
+	$("#form").hide();
 	});
 
 
@@ -102,11 +105,32 @@ newTopButton.addClass("row")
 var TopButton = $("<button>");
 TopButton.addClass("voteBtn btn btn-success");
 TopButton.text("+1");
+TopButton.on('click', function () {
+	$.ajax({
+		path: '/api/items/increment/:id/:score',
+		method: "PUT",
+	});
+});
 
 var newBottomButton = $("<div>");
 newBottomButton.addClass("row")
 var BottomButton = $("<button>");
 BottomButton.addClass("voteBtn btn btn-danger");
+
+
+
+BottomButton.on('click', function (url, data, method, success,id) {
+	$.ajax({
+		url: '/api/items/decrement/id='+itemData.id,
+		data: data, 
+		method: "PUT",
+		success: function (data){
+			console.log("it worked!")
+		}
+	});
+});
+
+
 BottomButton.text("-1");
 
 
@@ -128,6 +152,8 @@ return newItem;
 $("#thanks").show();
 $("#form").hide();
 
+
+
 };
 
 
@@ -137,22 +163,23 @@ function createModal(){
 	$("#thanks").hide();
 
 };
-
+rankingDesign();
 function rankingDesign(){
-	$.get("/api/topics?id="+theRes, function(rankingData){
-		console.log(rankingData.name)
-		var currentRanking = rankingData.name;
+	$.get("/api/topics", function(rankingData){
+		for (var i=0; i<rankingData.length; i++){
+			
+			if(rankingData[i].id==res){
+		var currentRanking = rankingData[i].name;
 		var rankingName = $("#rankingName");
 		rankingName.html(currentRanking);
 		var headerImage = $(".header");
 	 	headerImage.css({
-	    "background-image": "url('"+rankingData.topicURL+"')"
+	    "background-image": "url('"+rankingData[i].topicURL+"')"
  });
+}
+}
 });
 };
-rankingDesign();
-
-
 
 
 });
@@ -160,13 +187,4 @@ rankingDesign();
 //add on click functions that link the buttons th the database
 //window.location!!
 
-//$(document).on("click", "button.btn-success", addOne);
-//$(document).on("click", "button.btn-danger", minusOne);
 
-//function addOne() {
-//    var currentPost = $(this)
-//     .parent()
-//      .parent()
-//      .data("post");
-//    window.location.href = "/cms?post_id=" + currentPost.id;
-//  }
