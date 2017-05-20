@@ -112,6 +112,20 @@ TopButton.on('click', function () {
 	});
 });
 
+//TopButton.on('click', function (){
+//
+//	$.ajax({
+//		url: '/api/items',
+//		method: "PUT",
+//		where: {
+//			id:itemData.id
+//		},
+//		success: function (){
+//			console.log("it worked!")
+//		}
+//	});
+//});
+
 var newBottomButton = $("<div>");
 newBottomButton.addClass("row")
 var BottomButton = $("<button>");
@@ -119,6 +133,7 @@ BottomButton.addClass("voteBtn btn btn-danger");
 
 
 
+<<<<<<< HEAD
 BottomButton.on('click', function (url, data, method, success,id) {
 	$.ajax({
 		url: '/api/items/decrement/id='+itemData.id,
@@ -129,6 +144,20 @@ BottomButton.on('click', function (url, data, method, success,id) {
 		}
 	});
 });
+=======
+//BottomButton.on('click', function (){
+//	$.ajax({
+//		url: '/api/items',
+//		method: "PUT",
+//		where:{
+//			id:itemData.id
+//		},
+//		success: function (){
+//			console.log("it worked!")
+//		}
+//	});
+//});
+>>>>>>> c90a54455ade78cf4087b69744904ec380c0a996
 
 
 BottomButton.text("-1");
@@ -180,6 +209,13 @@ function rankingDesign(){
 }
 });
 };
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> c90a54455ade78cf4087b69744904ec380c0a996
 
 
 });
@@ -187,4 +223,7 @@ function rankingDesign(){
 //add on click functions that link the buttons th the database
 //window.location!!
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c90a54455ade78cf4087b69744904ec380c0a996

@@ -29,6 +29,7 @@ module.exports = function(app) {
    });
 
 
+<<<<<<< HEAD
   app.put('/api/items/increment/:id/:score', function(req,res){
 
     console.log(req.params.id)
@@ -48,9 +49,12 @@ module.exports = function(app) {
       });
 
   });
+=======
+>>>>>>> c90a54455ade78cf4087b69744904ec380c0a996
 
-  app.put('/api/items/decrement/:id/:score', function(req,res){
+  app.put('/api/items', function(req,res){
 
+<<<<<<< HEAD
      console.log(req.params.id)
 
     // db.Item.findById({
@@ -67,5 +71,31 @@ module.exports = function(app) {
       	res.json(dbItem);
       });
     });
+=======
+    db.Item.update({
+        score: req.params.score-1
+      },{
+        where: {
+            id: req.params.id
+          }
+        }).then(function(dbItem) {
+res.json(dbItem)
+    });
+});
+
+  app.put('/api/items', function(req,res){
+
+    db.Item.update({
+        score: req.params.score-1
+      },{
+        where: {
+            id: req.params.id
+          }
+        }).then(function(dbItem) {
+res.json(dbItem)
+    });
+});
+
+>>>>>>> c90a54455ade78cf4087b69744904ec380c0a996
 
 }
