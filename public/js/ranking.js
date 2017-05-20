@@ -105,12 +105,20 @@ newTopButton.addClass("row")
 var TopButton = $("<button>");
 TopButton.addClass("voteBtn btn btn-success");
 TopButton.text("+1");
-TopButton.on('click', function () {
-	$.ajax({
-		path: '/api/items/increment/:id/:score',
-		method: "PUT",
-	});
-});
+
+//TopButton.on('click', function (){
+//
+//	$.ajax({
+//		url: '/api/items',
+//		method: "PUT",
+//		where: {
+//			id:itemData.id
+//		},
+//		success: function (){
+//			console.log("it worked!")
+//		}
+//	});
+//});
 
 var newBottomButton = $("<div>");
 newBottomButton.addClass("row")
@@ -119,16 +127,18 @@ BottomButton.addClass("voteBtn btn btn-danger");
 
 
 
-BottomButton.on('click', function (url, data, method, success,id) {
-	$.ajax({
-		url: '/api/items/decrement/id='+itemData.id,
-		data: data, 
-		method: "PUT",
-		success: function (data){
-			console.log("it worked!")
-		}
-	});
-});
+//BottomButton.on('click', function (){
+//	$.ajax({
+//		url: '/api/items',
+//		method: "PUT",
+//		where:{
+//			id:itemData.id
+//		},
+//		success: function (){
+//			console.log("it worked!")
+//		}
+//	});
+//});
 
 
 BottomButton.text("-1");
@@ -182,9 +192,12 @@ function rankingDesign(){
 };
 
 
+
+
+
+
 });
 
 //add on click functions that link the buttons th the database
 //window.location!!
-
 

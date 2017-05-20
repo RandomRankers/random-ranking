@@ -31,47 +31,32 @@ module.exports = function(app) {
    });
 
 
-  app.put('/api/items/increment/:id/:score', function(req,res){
-  	db.Item.findById({
-    where: {
-        id: req.params.id
-      }
-    }).then(function(dbItem) {
 
-    res.json(dbItem);
+  app.put('/api/items', function(req,res){
 
-    db.Item.findById({
-      where: {
-          id: req.params.id
-        }
-      }).then( Item => {
-      return Item.increment('score', {by: 1})
-    }).then(function(dbItem){
-      res.json(dbItem);
-      });
-
-  });
-  }) 
-
-  app.put('/api/items/decrement/:id/:score', function(req,res){
-
-    db.Item.findById({
+    db.Item.update({
+        score: req.params.score-1
+      },{
         where: {
             id: req.params.id
           }
         }).then(function(dbItem) {
+res.json(dbItem)
+    });
+});
 
-        res.json(dbItem);
+  app.put('/api/items', function(req,res){
 
-    db.Item.findById({
+    db.Item.update({
+        score: req.params.score-1
+      },{
         where: {
             id: req.params.id
           }
-        }).then( Item => {
-        return Item.decrement('score', {by: 1})
-      }).then(function(dbItem){
-      	res.json(dbItem);
-        });
+        }).then(function(dbItem) {
+res.json(dbItem)
     });
-})
+});
+
+
 }
